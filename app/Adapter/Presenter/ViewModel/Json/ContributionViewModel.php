@@ -11,7 +11,7 @@ class ContributionViewModel implements JsonViewModel
 
     public function __construct(
         private readonly Contribution $contribution,
-        private readonly ?User $activator,
+        private readonly User $activator,
     ) {
     }
 
@@ -21,10 +21,7 @@ class ContributionViewModel implements JsonViewModel
             "activityKind" => self::ACTIVITY_KIND,
             "id" => $this->contribution->id()->value(),
             "datetime" => $this->contribution->datetime()->format("Y-m-d H:i:s"),
-            "activator" => match (true) {
-                !is_null($this->activator) => new UserViewModel($this->activator),
-                default => null,
-            },
+            "activator" => new UserViewModel($this->activator),
             "activatorId" => $this->contribution->activatorId()->value(),
         ];
     }

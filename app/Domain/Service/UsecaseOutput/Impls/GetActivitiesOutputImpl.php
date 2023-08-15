@@ -3,7 +3,9 @@
 namespace App\Domain\Service\UsecaseOutput\Impls;
 
 use App\Domain\Model\Entity\Contribution;
+use App\Domain\Model\Entity\User;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
+use App\Domain\Model\ValueObject\User\UserId;
 use App\Domain\Service\Dto\Activities;
 use App\Domain\Service\UsecaseOutput\GetActivitiesOutput;
 use Exception;
@@ -12,11 +14,13 @@ class GetActivitiesOutputImpl implements GetActivitiesOutput
 {
     /**
      * @param Activities $activities
+     * @param User[] $activators
      * @param Activities $contributionsOfReplied
      * @param Activities $contributionsOfShared
      */
     public function __construct(
         private readonly Activities $activities,
+        private readonly array $activators,
         private readonly Activities $contributionsOfReplied,
         private readonly Activities $contributionsOfShared,
     ) {
@@ -25,6 +29,20 @@ class GetActivitiesOutputImpl implements GetActivitiesOutput
     public function getActivities(): Activities
     {
         return $this->activities;
+    }
+
+    /**
+     * @param UserId $id
+     * @return User
+     */
+    public function getActivator(UserId $id): User
+    {
+        foreach ($this->activators as $activator) {
+            if ($activator->id()->equals($id)) {
+                return $activator;
+            }
+        }
+        throw new Exception("No such contribution of replied");
     }
 
     public function getContributionOfReplied(ContributionId $id): Contribution
