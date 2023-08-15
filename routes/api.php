@@ -24,3 +24,6 @@ Route::post('/activities/{activatorId}/reply/',          [\App\Http\Controllers\
 // 会員管理API群
 Route::get('/users/sign-in/',                            [\App\Http\Controllers\UserController::class, 'userSignIn']);
 Route::post('/users/sign-up/',                           [\App\Http\Controllers\UserController::class, 'userSignUp']);
+Route::get('/users/follower/',                           [\App\Http\Controllers\UserController::class, 'getFollower']);
+Route::get('/users/followee/',                           [\App\Http\Controllers\UserController::class, 'getFollowee']);
+Route::post('/users/follower/',                          [\App\Http\Controllers\UserController::class, 'postFollower']);
