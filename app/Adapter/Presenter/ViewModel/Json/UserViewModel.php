@@ -2,7 +2,7 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
-use App\Domain\Model\Entity\User\User;
+use App\Domain\Model\Entity\User;
 
 class UserViewModel implements JsonViewModel
 {
@@ -16,7 +16,6 @@ class UserViewModel implements JsonViewModel
         return [
             "id" => $this->user->id()->value(),
             "userName" => $this->user->userName()->value(),
-            "email" => $this->user->email()->value(),
         ];
     }
 }

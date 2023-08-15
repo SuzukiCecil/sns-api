@@ -2,9 +2,9 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
+use App\Domain\Model\Entity\Activity\Activator;
 use App\Domain\Model\Entity\Activity\Contribution;
 use App\Domain\Model\Entity\Activity\Share;
-use App\Domain\Model\Entity\User\User;
 
 class ShareViewModel implements JsonViewModel
 {
@@ -12,15 +12,15 @@ class ShareViewModel implements JsonViewModel
 
     /**
      * @param Share $share シェア
-     * @param User $activator シェアを行ったユーザーのID
+     * @param Activator $activator シェアを行ったユーザーのID
      * @param Contribution $sharedContribution シェア対象の投稿
-     * @param User $activatorOfSharedContribution シェア対象の投稿を行ったユーザーのID
+     * @param Activator $activatorOfSharedContribution シェア対象の投稿を行ったユーザーのID
      */
     public function __construct(
         private readonly Share $share,
-        private readonly User $activator,
+        private readonly Activator $activator,
         private readonly Contribution $sharedContribution,
-        private readonly User $activatorOfSharedContribution,
+        private readonly Activator $activatorOfSharedContribution,
     ) {
     }
 

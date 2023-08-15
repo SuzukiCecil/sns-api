@@ -2,8 +2,8 @@
 
 namespace App\Domain\Service\UsecaseOutput\Impls;
 
+use App\Domain\Model\Entity\Activity\Activator;
 use App\Domain\Model\Entity\Activity\Contribution;
-use App\Domain\Model\Entity\User\User;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
 use App\Domain\Model\ValueObject\User\UserId;
 use App\Domain\Service\Dto\Activities;
@@ -14,7 +14,7 @@ class GetTimelineOutputImpl implements GetTimelineOutput
 {
     /**
      * @param Activities $activities
-     * @param User[] $activators
+     * @param Activator[] $activators
      * @param Activities $contributionsOfReplied
      * @param Activities $contributionsOfShared
      */
@@ -33,9 +33,9 @@ class GetTimelineOutputImpl implements GetTimelineOutput
 
     /**
      * @param UserId $id
-     * @return User
+     * @return Activator
      */
-    public function getActivator(UserId $id): User
+    public function getActivator(UserId $id): Activator
     {
         foreach ($this->activators as $activator) {
             if ($activator->id()->equals($id)) {

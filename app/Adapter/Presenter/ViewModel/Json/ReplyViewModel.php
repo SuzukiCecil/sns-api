@@ -2,9 +2,9 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
+use App\Domain\Model\Entity\Activity\Activator;
 use App\Domain\Model\Entity\Activity\Contribution;
 use App\Domain\Model\Entity\Activity\Reply;
-use App\Domain\Model\Entity\User\User;
 
 class ReplyViewModel implements JsonViewModel
 {
@@ -12,15 +12,15 @@ class ReplyViewModel implements JsonViewModel
 
     /**
      * @param Reply $reply 返信
-     * @param User $activator 返信を行ったユーザーのID
+     * @param Activator $activator 返信を行ったユーザーのID
      * @param Contribution $repliedContribution 返信対象の投稿
-     * @param User $activatorOfRepliedContribution 返信対象の投稿を行ったユーザーのID
+     * @param Activator $activatorOfRepliedContribution 返信対象の投稿を行ったユーザーのID
      */
     public function __construct(
         private readonly Reply $reply,
-        private readonly User $activator,
+        private readonly Activator $activator,
         private readonly Contribution $repliedContribution,
-        private readonly User $activatorOfRepliedContribution,
+        private readonly Activator $activatorOfRepliedContribution,
     ) {
     }
 

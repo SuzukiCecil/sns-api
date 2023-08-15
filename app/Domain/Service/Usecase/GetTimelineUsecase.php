@@ -40,7 +40,7 @@ class GetTimelineUsecase
         $activatorIds = $this->mergeActivatorIds($activatorIds, $contributionsOfReplied->uniqueActivatorIds());
         $activatorIds = $this->mergeActivatorIds($activatorIds, $contributionsOfShared->uniqueActivatorIds());
         $activators = $activities->count() > 0 ?
-            $this->userQuery->getUsersByIds($activatorIds) :
+            $this->userQuery->getActivatorsByIds($activatorIds) :
             [];
 
         return new GetTimelineOutputImpl(

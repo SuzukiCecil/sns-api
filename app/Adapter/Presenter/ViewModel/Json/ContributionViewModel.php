@@ -2,8 +2,8 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
+use App\Domain\Model\Entity\Activity\Activator;
 use App\Domain\Model\Entity\Activity\Contribution;
-use App\Domain\Model\Entity\User\User;
 
 class ContributionViewModel implements JsonViewModel
 {
@@ -11,7 +11,7 @@ class ContributionViewModel implements JsonViewModel
 
     public function __construct(
         private readonly Contribution $contribution,
-        private readonly User $activator,
+        private readonly Activator $activator,
     ) {
     }
 

@@ -7,7 +7,7 @@ use App\Domain\Model\ValueObject\User\UserId;
 use App\Domain\Model\ValueObject\User\UserName;
 use Exception;
 
-class User
+class User implements \App\Domain\Model\Entity\User
 {
     public function __construct(
         private readonly ?UserId $id,

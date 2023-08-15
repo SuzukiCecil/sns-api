@@ -2,14 +2,14 @@
 
 namespace App\Domain\Service\Repository\Query;
 
-use App\Domain\Model\Entity\User\User;
+use App\Domain\Model\Entity\Activity\Activator;
 use App\Domain\Model\ValueObject\User\UserId;
 
 interface UserQuery
 {
     /**
      * @param UserId[] $ids
-     * @return User[]
+     * @return Activator[]
      */
-    public function getUsersByIds(array $ids): array;
+    public function getActivatorsByIds(array $ids): array;
 }
