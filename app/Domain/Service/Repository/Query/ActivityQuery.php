@@ -22,4 +22,13 @@ interface ActivityQuery
      * @return Activities
      */
     public function getActivitiesByActivatorId(UserId $activatorId, ?int $limit = null, ?int $offset = null): Activities;
+
+    /**
+     * ユーザーIDからそのユーザーがフォローしているユーザーが行ったアクティビティの一覧を取得する関数
+     * @param UserId $followeeId
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return Activities
+     */
+    public function getFollowersActivities(UserId $followeeId, ?int $limit = null, ?int $offset = null): Activities;
 }

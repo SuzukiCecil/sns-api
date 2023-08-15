@@ -84,4 +84,56 @@ class ActivityQueryGateway implements ActivityQuery
             ),
         ]);
     }
+
+    /**
+     * ユーザーIDからそのユーザーがフォローしているユーザーが行ったアクティビティの一覧を取得する関数
+     * @param UserId $followeeId
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return Activities
+     */
+    public function getFollowersActivities(UserId $followeeId, ?int $limit = null, ?int $offset = null): Activities
+    {
+        // TODO：データストアからのアクティビティ生成処理の実装
+        return new Activities([
+            new Contribution(
+                new ActivityId("11"),
+                new \DateTimeImmutable(),
+                new UserId("21"),
+                new Body("ContributionBody1"),
+            ),
+            new Contribution(
+                new ActivityId("12"),
+                new \DateTimeImmutable(),
+                new UserId("22"),
+                new Body("ContributionBody2"),
+            ),
+            new Share(
+                new ActivityId("13"),
+                new \DateTimeImmutable(),
+                new UserId("22"),
+                new ContributionId("101"),
+            ),
+            new Share(
+                new ActivityId("14"),
+                new \DateTimeImmutable(),
+                new UserId("23"),
+                new ContributionId("102"),
+            ),
+            new Reply(
+                new ActivityId("15"),
+                new \DateTimeImmutable(),
+                new UserId("24"),
+                new ContributionId("101"),
+                new Body("ReplyBody1"),
+            ),
+            new Reply(
+                new ActivityId("16"),
+                new \DateTimeImmutable(),
+                new UserId("24"),
+                new ContributionId("103"),
+                new Body("ReplyBody2"),
+            ),
+        ]);
+    }
 }

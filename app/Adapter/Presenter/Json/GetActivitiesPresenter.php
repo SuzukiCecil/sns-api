@@ -25,9 +25,9 @@ class GetActivitiesPresenter extends JsonPresenter
         return $this->jsonResponse(
             array_map(function (Activity $activity) use ($output) {
                 return match (true) {
-                    $activity instanceof Contribution => new ContributionViewModel($activity),
-                    $activity instanceof Reply => new ReplyViewModel($activity, $output->getContributionOfReplied($activity->repliedContributionId())),
-                    $activity instanceof Share => new ShareViewModel($activity, $output->getContributionOfShared($activity->sharedContributionId())),
+                    $activity instanceof Contribution => new ContributionViewModel($activity, null),
+                    $activity instanceof Reply => new ReplyViewModel($activity, null, $output->getContributionOfReplied($activity->repliedContributionId()), null),
+                    $activity instanceof Share => new ShareViewModel($activity, null, $output->getContributionOfShared($activity->sharedContributionId()), null),
                     default => throw new Exception("Unexpected activity."),
                 };
             }, $output->getActivities()->values)

@@ -8,7 +8,9 @@ use App\Adapter\Converter\Request\PostContributionConverter;
 use App\Adapter\Converter\Request\PostReplyConverter;
 use App\Adapter\Converter\Request\PostShareConverter;
 use App\Adapter\Presenter\Json\GetActivitiesPresenter;
+use App\Adapter\Presenter\Json\GetTimelinePresenter;
 use App\Domain\Service\Usecase\GetActivitiesUsecase;
+use App\Domain\Service\Usecase\GetTimelineUsecase;
 use Illuminate\Http\JsonResponse;
 use Exception;
 
@@ -27,10 +29,17 @@ class ActivitiesController extends Controller
         return $presenter->execute($output);
     }
 
-    public function getTimeline(GetTimelineConverter $input): JsonResponse
+    /**
+     * @param GetTimelineConverter $input
+     * @param GetTimelineUsecase $usecase
+     * @param GetTimelinePresenter $presenter
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function getTimeline(GetTimelineConverter $input, GetTimelineUsecase $usecase, GetTimelinePresenter $presenter): JsonResponse
     {
-        // TODO：タイムライン取得APIの実装
-        return new JsonResponse();
+        $output = $usecase->execute($input);
+        return $presenter->execute($output);
     }
 
     public function postContribution(PostContributionConverter $input): JsonResponse

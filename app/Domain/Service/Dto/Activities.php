@@ -8,6 +8,7 @@ use App\Domain\Model\Entity\Reply;
 use App\Domain\Model\Entity\Share;
 use App\Domain\Model\ValueObject\Activity\ActivityId;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
+use App\Domain\Model\ValueObject\User\UserId;
 
 class Activities
 {
@@ -55,6 +56,11 @@ class Activities
         );
     }
 
+    public function count(): int
+    {
+        return count($this->values);
+    }
+
     public function countOfContributions(): int
     {
         return count($this->contributions());
@@ -88,5 +94,17 @@ class Activities
         return array_map(function (Share $share) {
             return $share->sharedContributionId();
         }, $this->shares());
+    }
+
+    /**
+     * @return UserId[]
+     */
+    public function uniqueActivatorIds(): array
+    {
+        $activatorIds = [];
+        foreach ($this->values as $value) {
+            $activatorIds[$value->activatorId()->value()] = $value->activatorId();
+        }
+        return array_values($activatorIds);
     }
 }
