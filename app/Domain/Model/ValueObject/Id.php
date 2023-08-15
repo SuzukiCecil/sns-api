@@ -17,4 +17,9 @@ abstract class Id
     {
         return $this->value;
     }
+
+    public function equals(Id $target): bool
+    {
+        return static::class === $target::class && $this->value() === $target->value();
+    }
 }

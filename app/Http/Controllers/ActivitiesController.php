@@ -7,13 +7,24 @@ use App\Adapter\Converter\Request\GetTimelineConverter;
 use App\Adapter\Converter\Request\PostContributionConverter;
 use App\Adapter\Converter\Request\PostReplyConverter;
 use App\Adapter\Converter\Request\PostShareConverter;
+use App\Adapter\Presenter\Json\GetActivitiesPresenter;
+use App\Domain\Service\Usecase\GetActivitiesUsecase;
 use Illuminate\Http\JsonResponse;
+use Exception;
 
 class ActivitiesController extends Controller
 {
-    public function getActivities(GetActivitiesConverter $input): JsonResponse
+    /**
+     * @param GetActivitiesConverter $input
+     * @param GetActivitiesUsecase $usecase
+     * @param GetActivitiesPresenter $presenter
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function getActivities(GetActivitiesConverter $input, GetActivitiesUsecase $usecase, GetActivitiesPresenter $presenter): JsonResponse
     {
-        return new JsonResponse();
+        $output = $usecase->execute($input);
+        return $presenter->execute($output);
     }
 
     public function getTimeline(GetTimelineConverter $input): JsonResponse
