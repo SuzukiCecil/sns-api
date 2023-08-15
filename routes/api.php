@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/activities/{userId}/',                 [\App\Http\Controllers\ActivitiesController::class, 'getActivities']);
+Route::get('/activities/{userId}/timeline/',        [\App\Http\Controllers\ActivitiesController::class, 'getTimeline']);
+Route::post('/activities/{userId}/contribution/',   [\App\Http\Controllers\ActivitiesController::class, 'postContribution']);
+Route::post('/activities/{userId}/share/',          [\App\Http\Controllers\ActivitiesController::class, 'postShare']);
+Route::post('/activities/{userId}/reply/',          [\App\Http\Controllers\ActivitiesController::class, 'postReply']);
