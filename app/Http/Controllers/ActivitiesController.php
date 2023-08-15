@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Adapter\Converter\Request\GetActivitiesConverter;
+use App\Adapter\Converter\Request\GetTimelineConverter;
+use App\Adapter\Converter\Request\PostContributionConverter;
+use App\Adapter\Converter\Request\PostReplyConverter;
+use App\Adapter\Converter\Request\PostShareConverter;
 use Illuminate\Http\JsonResponse;
 
 class ActivitiesController extends Controller
@@ -12,22 +16,22 @@ class ActivitiesController extends Controller
         return new JsonResponse();
     }
 
-    public function getTimeline(): JsonResponse
+    public function getTimeline(GetTimelineConverter $input): JsonResponse
     {
         return new JsonResponse();
     }
 
-    public function postContribution(): JsonResponse
+    public function postContribution(PostContributionConverter $input): JsonResponse
     {
         return new JsonResponse();
     }
 
-    public function postShare(): JsonResponse
+    public function postShare(PostShareConverter $input): JsonResponse
     {
         return new JsonResponse();
     }
 
-    public function postReply(): JsonResponse
+    public function postReply(PostReplyConverter $input): JsonResponse
     {
         return new JsonResponse();
     }
