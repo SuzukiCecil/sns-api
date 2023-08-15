@@ -29,21 +29,25 @@ class ActivitiesController extends Controller
 
     public function getTimeline(GetTimelineConverter $input): JsonResponse
     {
+        // TODO：タイムライン取得APIの実装
         return new JsonResponse();
     }
 
     public function postContribution(PostContributionConverter $input): JsonResponse
     {
+        // TODO：コントリビューション登録APIの実装
         return new JsonResponse();
     }
 
     public function postShare(PostShareConverter $input): JsonResponse
     {
+        // TODO：シェア登録APIの実装
         return new JsonResponse();
     }
 
     public function postReply(PostReplyConverter $input): JsonResponse
     {
+        // TODO：返信登録APIの実装
         return new JsonResponse();
     }
 }
