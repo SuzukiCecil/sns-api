@@ -2,7 +2,7 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
-use App\Domain\Model\Entity\User;
+use App\Domain\Model\Entity\User\User;
 
 class UserViewModel implements JsonViewModel
 {

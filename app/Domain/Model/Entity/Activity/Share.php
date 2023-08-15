@@ -1,46 +1,34 @@
 <?php
 
-namespace App\Domain\Model\Entity;
+namespace App\Domain\Model\Entity\Activity;
 
-use App\Domain\Model\Exception\InvalidDataException;
 use App\Domain\Model\ValueObject\Activity\ActivityId;
-use App\Domain\Model\ValueObject\Activity\Body;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
 use App\Domain\Model\ValueObject\User\UserId;
 use DateTimeImmutable;
 
 /**
- * 投稿クラス（アクティビティの1種）
+ * 特定の投稿に対するシェアクラス（アクティビティの1種）
  */
-class Contribution extends Activity
+class Share extends Activity
 {
     /**
      * @param ActivityId|null $id アクティビティのユニークID、永続化に至っていない場合はnull
      * @param DateTimeImmutable $datetime アクティビティの投稿日時
      * @param UserId $activatorId アクティビティの投稿ユーザーID
-     * @param Body $body 投稿の本文
+     * @param ContributionId $sharedContributionId シェアする対象の投稿のID
      */
     public function __construct(
         ?ActivityId $id,
         DateTimeImmutable $datetime,
         UserId $activatorId,
-        private readonly Body $body,
+        private readonly ContributionId $sharedContributionId,
     ) {
         parent::__construct($id, $datetime, $activatorId);
     }
 
-    public function body(): Body
+    public function sharedContributionId(): ContributionId
     {
-        return $this->body;
-    }
-
-    /**
-     * アクティビティIDを投稿IDとして取得する関数
-     * @return ContributionId
-     * @throws InvalidDataException
-     */
-    public function contributionId(): ContributionId
-    {
-        return new ContributionId($this->id()->value());
+        return $this->sharedContributionId;
     }
 }

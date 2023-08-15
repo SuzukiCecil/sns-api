@@ -2,9 +2,9 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
-use App\Domain\Model\Entity\Contribution;
-use App\Domain\Model\Entity\Reply;
-use App\Domain\Model\Entity\User;
+use App\Domain\Model\Entity\Activity\Contribution;
+use App\Domain\Model\Entity\Activity\Reply;
+use App\Domain\Model\Entity\User\User;
 
 class ReplyViewModel implements JsonViewModel
 {

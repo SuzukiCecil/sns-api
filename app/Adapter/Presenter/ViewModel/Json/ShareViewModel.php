@@ -2,9 +2,9 @@
 
 namespace App\Adapter\Presenter\ViewModel\Json;
 
-use App\Domain\Model\Entity\Contribution;
-use App\Domain\Model\Entity\Share;
-use App\Domain\Model\Entity\User;
+use App\Domain\Model\Entity\Activity\Contribution;
+use App\Domain\Model\Entity\Activity\Share;
+use App\Domain\Model\Entity\User\User;
 
 class ShareViewModel implements JsonViewModel
 {

@@ -1,34 +1,42 @@
 <?php
 
-namespace App\Domain\Model\Entity;
+namespace App\Domain\Model\Entity\Activity;
 
 use App\Domain\Model\ValueObject\Activity\ActivityId;
+use App\Domain\Model\ValueObject\Activity\Body;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
 use App\Domain\Model\ValueObject\User\UserId;
 use DateTimeImmutable;
 
 /**
- * 特定の投稿に対するシェアクラス（アクティビティの1種）
+ * 特定の投稿に対する返信クラス（アクティビティの1種）
  */
-class Share extends Activity
+class Reply extends Activity
 {
     /**
      * @param ActivityId|null $id アクティビティのユニークID、永続化に至っていない場合はnull
      * @param DateTimeImmutable $datetime アクティビティの投稿日時
      * @param UserId $activatorId アクティビティの投稿ユーザーID
-     * @param ContributionId $sharedContributionId シェアする対象の投稿のID
+     * @param ContributionId $repliedContributionId 返信する対象の投稿のID
+     * @param Body $body 返信の本文
      */
     public function __construct(
         ?ActivityId $id,
         DateTimeImmutable $datetime,
         UserId $activatorId,
-        private readonly ContributionId $sharedContributionId,
+        private readonly ContributionId $repliedContributionId,
+        private readonly Body $body,
     ) {
         parent::__construct($id, $datetime, $activatorId);
     }
 
-    public function sharedContributionId(): ContributionId
+    public function repliedContributionId(): ContributionId
     {
-        return $this->sharedContributionId;
+        return $this->repliedContributionId;
+    }
+
+    public function body(): Body
+    {
+        return $this->body;
     }
 }

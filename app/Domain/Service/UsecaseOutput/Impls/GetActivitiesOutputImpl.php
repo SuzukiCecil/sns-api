@@ -2,8 +2,8 @@
 
 namespace App\Domain\Service\UsecaseOutput\Impls;
 
-use App\Domain\Model\Entity\Contribution;
-use App\Domain\Model\Entity\User;
+use App\Domain\Model\Entity\Activity\Contribution;
+use App\Domain\Model\Entity\User\User;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
 use App\Domain\Model\ValueObject\User\UserId;
 use App\Domain\Service\Dto\Activities;

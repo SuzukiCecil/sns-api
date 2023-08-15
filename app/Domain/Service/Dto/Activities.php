@@ -2,11 +2,10 @@
 
 namespace App\Domain\Service\Dto;
 
-use App\Domain\Model\Entity\Activity;
-use App\Domain\Model\Entity\Contribution;
-use App\Domain\Model\Entity\Reply;
-use App\Domain\Model\Entity\Share;
-use App\Domain\Model\ValueObject\Activity\ActivityId;
+use App\Domain\Model\Entity\Activity\Activity;
+use App\Domain\Model\Entity\Activity\Contribution;
+use App\Domain\Model\Entity\Activity\Reply;
+use App\Domain\Model\Entity\Activity\Share;
 use App\Domain\Model\ValueObject\Activity\ContributionId;
 use App\Domain\Model\ValueObject\User\UserId;
 

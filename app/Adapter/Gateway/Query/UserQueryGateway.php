@@ -2,7 +2,7 @@
 
 namespace App\Adapter\Gateway\Query;
 
-use App\Domain\Model\Entity\User;
+use App\Domain\Model\Entity\User\User;
 use App\Domain\Model\Exception\InvalidDataException;
 use App\Domain\Model\ValueObject\User\Email;
 use App\Domain\Model\ValueObject\User\UserId;

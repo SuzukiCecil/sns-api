@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Model\Entity;
+namespace App\Domain\Model\Entity\Activity;
 
 use App\Domain\Model\ValueObject\Activity\ActivityId;
 use App\Domain\Model\ValueObject\User\UserId;
