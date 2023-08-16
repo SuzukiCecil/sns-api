@@ -9,10 +9,10 @@ use App\Domain\Service\Dto\Activities;
 interface ActivityQuery
 {
     /**
-     * @param ContributionId[] $contributionIds
+     * @param ContributionId[]|ContributionId $contributionIds
      * @return Activities
      */
-    public function getContributionsByIds(array $contributionIds): Activities;
+    public function getContributionsByIds(array|ContributionId $contributionIds): Activities;
 
     /**
      * ユーザーIDからそのユーザーが行ったアクティビティの一覧を取得する関数

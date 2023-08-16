@@ -10,9 +10,11 @@ use App\Adapter\Converter\Request\PostShareConverter;
 use App\Adapter\Presenter\Json\GetActivitiesPresenter;
 use App\Adapter\Presenter\Json\GetTimelinePresenter;
 use App\Adapter\Presenter\Json\PostContributionPresenter;
+use App\Adapter\Presenter\Json\PostSharePresenter;
 use App\Domain\Service\Usecase\GetActivitiesUsecase;
 use App\Domain\Service\Usecase\GetTimelineUsecase;
 use App\Domain\Service\Usecase\PostContributionUsecase;
+use App\Domain\Service\Usecase\PostShareUsecase;
 use Illuminate\Http\JsonResponse;
 use Exception;
 
@@ -57,10 +59,17 @@ class ActivitiesController extends Controller
         return $presenter->execute($output);
     }
 
-    public function postShare(PostShareConverter $input): JsonResponse
+    /**
+     * @param PostShareConverter $input
+     * @param PostShareUsecase $usecase
+     * @param PostSharePresenter $presenter
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function postShare(PostShareConverter $input, PostShareUsecase $usecase, PostSharePresenter $presenter): JsonResponse
     {
-        // TODO：シェア登録APIの実装
-        return new JsonResponse();
+        $output = $usecase->execute($input);
+        return $presenter->execute($output);
     }
 
     public function postReply(PostReplyConverter $input): JsonResponse

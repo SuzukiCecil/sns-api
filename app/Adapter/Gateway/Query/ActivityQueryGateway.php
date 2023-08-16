@@ -15,11 +15,13 @@ use App\Domain\Service\Repository\Query\ActivityQuery;
 class ActivityQueryGateway implements ActivityQuery
 {
     /**
-     * @param ContributionId[] $contributionIds
+     * @param ContributionId[]|ContributionId $contributionIds
      * @return Activities
      */
-    public function getContributionsByIds(array $contributionIds): Activities
+    public function getContributionsByIds(array|ContributionId $contributionIds): Activities
     {
+        $contributionIds = is_array($contributionIds) ? $contributionIds : [$contributionIds];
+
         // TODO：データストアからのアクティビティ生成処理の実装
         $contributions = [];
         foreach ($contributionIds as $contributionId) {
