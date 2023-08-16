@@ -12,12 +12,13 @@ class UserQueryGateway implements UserQuery
 {
 
     /**
-     * @param UserId[] $ids
+     * @param UserId[]|UserId $ids
      * @return Activator[]
      * @throws InvalidDataException
      */
-    public function getActivatorsByIds(array $ids): array
+    public function getActivatorsByIds(array|UserId $ids): array
     {
+        $ids = !is_array($ids) ? [$ids] : $ids;
         $users = [];
         foreach ($ids as $id) {
             $users[] = new Activator(

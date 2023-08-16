@@ -8,8 +8,8 @@ use App\Domain\Model\ValueObject\User\UserId;
 interface UserQuery
 {
     /**
-     * @param UserId[] $ids
+     * @param UserId[]|UserId $ids
      * @return Activator[]
      */
-    public function getActivatorsByIds(array $ids): array;
+    public function getActivatorsByIds(array|UserId $ids): array;
 }

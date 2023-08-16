@@ -9,8 +9,10 @@ use App\Adapter\Converter\Request\PostReplyConverter;
 use App\Adapter\Converter\Request\PostShareConverter;
 use App\Adapter\Presenter\Json\GetActivitiesPresenter;
 use App\Adapter\Presenter\Json\GetTimelinePresenter;
+use App\Adapter\Presenter\Json\PostContributionPresenter;
 use App\Domain\Service\Usecase\GetActivitiesUsecase;
 use App\Domain\Service\Usecase\GetTimelineUsecase;
+use App\Domain\Service\Usecase\PostContributionUsecase;
 use Illuminate\Http\JsonResponse;
 use Exception;
 
@@ -42,10 +44,17 @@ class ActivitiesController extends Controller
         return $presenter->execute($output);
     }
 
-    public function postContribution(PostContributionConverter $input): JsonResponse
+    /**
+     * @param PostContributionConverter $input
+     * @param PostContributionUsecase $usecase
+     * @param PostContributionPresenter $presenter
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function postContribution(PostContributionConverter $input, PostContributionUsecase $usecase, PostContributionPresenter $presenter): JsonResponse
     {
-        // TODO：コントリビューション登録APIの実装
-        return new JsonResponse();
+        $output = $usecase->execute($input);
+        return $presenter->execute($output);
     }
 
     public function postShare(PostShareConverter $input): JsonResponse

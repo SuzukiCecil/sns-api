@@ -23,6 +23,7 @@ class ContributionViewModel implements JsonViewModel
             "datetime" => $this->contribution->datetime()->format("Y-m-d H:i:s"),
             "activator" => new UserViewModel($this->activator),
             "activatorId" => $this->contribution->activatorId()->value(),
+            "body" => $this->contribution->body()->value(),
         ];
     }
 }
