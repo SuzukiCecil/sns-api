@@ -10,10 +10,12 @@ use App\Adapter\Converter\Request\PostShareConverter;
 use App\Adapter\Presenter\Json\GetActivitiesPresenter;
 use App\Adapter\Presenter\Json\GetTimelinePresenter;
 use App\Adapter\Presenter\Json\PostContributionPresenter;
+use App\Adapter\Presenter\Json\PostReplyPresenter;
 use App\Adapter\Presenter\Json\PostSharePresenter;
 use App\Domain\Service\Usecase\GetActivitiesUsecase;
 use App\Domain\Service\Usecase\GetTimelineUsecase;
 use App\Domain\Service\Usecase\PostContributionUsecase;
+use App\Domain\Service\Usecase\PostReplyUsecase;
 use App\Domain\Service\Usecase\PostShareUsecase;
 use Illuminate\Http\JsonResponse;
 use Exception;
@@ -72,9 +74,16 @@ class ActivitiesController extends Controller
         return $presenter->execute($output);
     }
 
-    public function postReply(PostReplyConverter $input): JsonResponse
+    /**
+     * @param PostReplyConverter $input
+     * @param PostReplyUsecase $usecase
+     * @param PostReplyPresenter $presenter
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function postReply(PostReplyConverter $input, PostReplyUsecase $usecase, PostReplyPresenter $presenter): JsonResponse
     {
-        // TODO：返信登録APIの実装
-        return new JsonResponse();
+        $output = $usecase->execute($input);
+        return $presenter->execute($output);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Domain\Service\Repository\Command;
 
 use App\Domain\Model\Entity\Activity\Contribution;
+use App\Domain\Model\Entity\Activity\Reply;
 use App\Domain\Model\Entity\Activity\Share;
 
 interface ActivityCommand
@@ -20,4 +21,11 @@ interface ActivityCommand
      * @return Share
      */
     public function saveShare(Share $share): Share;
+
+    /**
+     * 新しくシェアをデータストアに登録し、登録後のシェアを返却する関数
+     * @param Reply $reply
+     * @return Reply
+     */
+    public function saveReply(Reply $reply): Reply;
 }

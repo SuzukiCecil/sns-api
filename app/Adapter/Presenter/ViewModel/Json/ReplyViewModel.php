@@ -30,6 +30,7 @@ class ReplyViewModel implements JsonViewModel
             "activityKind" => self::ACTIVITY_KIND,
             "id" => $this->reply->id()->value(),
             "datetime" => $this->reply->datetime()->format("Y-m-d H:i:s"),
+            "body" => $this->reply->body()->value(),
             "activatorId" => $this->reply->activatorId()->value(),
             "activator" => new UserViewModel($this->activator),
             "repliedContribution" => new ContributionViewModel($this->repliedContribution, $this->activatorOfRepliedContribution),
