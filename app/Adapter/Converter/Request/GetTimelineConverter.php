@@ -2,23 +2,23 @@
 
 namespace App\Adapter\Converter\Request;
 
-use App\Domain\Model\ValueObject\User\UserId;
-use App\Domain\Service\UsecaseInput\GetTimelineInput;
+use App\Contexts\Activity\Application\UsecaseInput\GetTimelineInput;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 
 class GetTimelineConverter extends RequestConverter implements GetTimelineInput
 {
-    private readonly UserId $targetUserId;
+    private readonly ActivatorId $targetUserId;
     private readonly ?int $limit;
     private readonly ?int $offset;
 
     protected function execute(): void
     {
-        $this->targetUserId = new UserId($this->request->route("userId"));
+        $this->targetUserId = new ActivatorId($this->request->route("userId"));
         $this->limit = $this->request->input("limit") ?? null;
         $this->offset = $this->request->input("offset") ?? null;
     }
 
-    public function getTargetUserId(): UserId
+    public function getTargetUserId(): ActivatorId
     {
         return $this->targetUserId;
     }

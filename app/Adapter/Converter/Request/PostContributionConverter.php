@@ -2,10 +2,10 @@
 
 namespace App\Adapter\Converter\Request;
 
-use App\Domain\Model\Entity\Activity\Contribution;
-use App\Domain\Model\ValueObject\Activity\Body;
-use App\Domain\Model\ValueObject\User\UserId;
-use App\Domain\Service\UsecaseInput\PostContributionInput;
+use App\Contexts\Activity\Application\UsecaseInput\PostContributionInput;
+use App\Contexts\Activity\Domain\Model\Entity\Contribution;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
+use App\Contexts\Activity\Domain\Model\ValueObject\Body;
 use DateTimeImmutable;
 
 class PostContributionConverter extends RequestConverter implements PostContributionInput
@@ -18,7 +18,7 @@ class PostContributionConverter extends RequestConverter implements PostContribu
         $this->postedContribution = new Contribution(
             null,
             new DateTimeImmutable(),
-            new UserId((string)$this->request->route("activatorId")),
+            new ActivatorId((string)$this->request->route("activatorId")),
             new Body((string)$this->request->input("body")),
         );
     }

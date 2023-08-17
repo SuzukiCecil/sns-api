@@ -7,18 +7,18 @@ use App\Adapter\Converter\Request\GetTimelineConverter;
 use App\Adapter\Converter\Request\PostContributionConverter;
 use App\Adapter\Converter\Request\PostReplyConverter;
 use App\Adapter\Converter\Request\PostShareConverter;
-use App\Adapter\Presenter\Json\GetActivitiesPresenter;
-use App\Adapter\Presenter\Json\GetTimelinePresenter;
-use App\Adapter\Presenter\Json\PostContributionPresenter;
-use App\Adapter\Presenter\Json\PostReplyPresenter;
-use App\Adapter\Presenter\Json\PostSharePresenter;
-use App\Domain\Service\Usecase\GetActivitiesUsecase;
-use App\Domain\Service\Usecase\GetTimelineUsecase;
-use App\Domain\Service\Usecase\PostContributionUsecase;
-use App\Domain\Service\Usecase\PostReplyUsecase;
-use App\Domain\Service\Usecase\PostShareUsecase;
-use Illuminate\Http\JsonResponse;
+use App\Adapter\Presenter\Json\Activity\GetActivitiesPresenter;
+use App\Adapter\Presenter\Json\Activity\GetTimelinePresenter;
+use App\Adapter\Presenter\Json\Activity\PostContributionPresenter;
+use App\Adapter\Presenter\Json\Activity\PostReplyPresenter;
+use App\Adapter\Presenter\Json\Activity\PostSharePresenter;
+use App\Contexts\Activity\Application\Usecase\GetActivitiesUsecase;
+use App\Contexts\Activity\Application\Usecase\GetTimelineUsecase;
+use App\Contexts\Activity\Application\Usecase\PostContributionUsecase;
+use App\Contexts\Activity\Application\Usecase\PostReplyUsecase;
+use App\Contexts\Activity\Application\Usecase\PostShareUsecase;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class ActivitiesController extends Controller
 {

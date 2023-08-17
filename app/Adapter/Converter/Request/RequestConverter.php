@@ -3,9 +3,9 @@
 namespace App\Adapter\Converter\Request;
 
 use App\Adapter\Converter\Exception\InvalidRequestParameterException;
-use App\Domain\Model\Exception\InvalidDataException;
-use Illuminate\Http\Request;
+use App\Contexts\Base\Domain\Model\Exception\InvalidDataException;
 use Exception;
+use Illuminate\Http\Request;
 use Throwable;
 
 /**

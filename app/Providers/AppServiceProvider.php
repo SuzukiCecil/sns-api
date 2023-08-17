@@ -5,9 +5,9 @@ namespace App\Providers;
 use App\Adapter\Gateway\Command\ActivityCommandGateway;
 use App\Adapter\Gateway\Query\ActivityQueryGateway;
 use App\Adapter\Gateway\Query\UserQueryGateway;
-use App\Domain\Service\Repository\Command\ActivityCommand;
-use App\Domain\Service\Repository\Query\ActivityQuery;
-use App\Domain\Service\Repository\Query\UserQuery;
+use App\Contexts\Activity\Domain\Service\Repository\Command\ActivityCommand;
+use App\Contexts\Activity\Domain\Service\Repository\Query\ActivityQuery;
+use App\Contexts\User\Domain\Service\Repository\Query\UserQuery;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

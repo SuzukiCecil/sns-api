@@ -2,23 +2,23 @@
 
 namespace App\Adapter\Converter\Request;
 
-use App\Domain\Model\ValueObject\User\UserId;
-use App\Domain\Service\UsecaseInput\GetActivitiesInput;
+use App\Contexts\Activity\Application\UsecaseInput\GetActivitiesInput;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 
 class GetActivitiesConverter extends RequestConverter implements GetActivitiesInput
 {
-    private readonly UserId $activatorId;
+    private readonly ActivatorId $activatorId;
     private readonly ?int $limit;
     private readonly ?int $offset;
 
     protected function execute(): void
     {
-        $this->activatorId = new UserId($this->request->route("activatorId"));
+        $this->activatorId = new ActivatorId($this->request->route("activatorId"));
         $this->limit = $this->request->input("limit") ?? null;
         $this->offset = $this->request->input("offset") ?? null;
     }
 
-    public function getActivatorId(): UserId
+    public function getActivatorId(): ActivatorId
     {
         return $this->activatorId;
     }

@@ -2,10 +2,10 @@
 
 namespace App\Adapter\Converter\Request;
 
-use App\Domain\Model\Entity\Activity\Share;
-use App\Domain\Model\ValueObject\Activity\ContributionId;
-use App\Domain\Model\ValueObject\User\UserId;
-use App\Domain\Service\UsecaseInput\PostShareInput;
+use App\Contexts\Activity\Application\UsecaseInput\PostShareInput;
+use App\Contexts\Activity\Domain\Model\Entity\Share;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
+use App\Contexts\Activity\Domain\Model\ValueObject\ContributionId;
 use DateTimeImmutable;
 
 class PostShareConverter extends RequestConverter implements PostShareInput
@@ -17,7 +17,7 @@ class PostShareConverter extends RequestConverter implements PostShareInput
         $this->postedShare = new Share(
             null,
             new DateTimeImmutable(),
-            new UserId((string)$this->request->route("activatorId")),
+            new ActivatorId((string)$this->request->route("activatorId")),
             new ContributionId((string)$this->request->input("contributionId")),
         );
     }

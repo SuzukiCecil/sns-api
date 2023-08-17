@@ -2,28 +2,28 @@
 
 namespace App\Adapter\Gateway\Query;
 
-use App\Domain\Model\Entity\Activity\Activator;
-use App\Domain\Model\Exception\InvalidDataException;
-use App\Domain\Model\ValueObject\User\UserId;
-use App\Domain\Model\ValueObject\User\UserName;
-use App\Domain\Service\Repository\Query\UserQuery;
+use App\Contexts\Activity\Domain\Model\Entity\Activator;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorName;
+use App\Contexts\Base\Domain\Model\Exception\InvalidDataException;
+use App\Contexts\User\Domain\Service\Repository\Query\UserQuery;
 
 class UserQueryGateway implements UserQuery
 {
 
     /**
-     * @param UserId[]|UserId $ids
+     * @param ActivatorId[]|ActivatorId $ids
      * @return Activator[]
      * @throws InvalidDataException
      */
-    public function getActivatorsByIds(array|UserId $ids): array
+    public function getActivatorsByIds(array|ActivatorId $ids): array
     {
         $ids = !is_array($ids) ? [$ids] : $ids;
         $users = [];
         foreach ($ids as $id) {
             $users[] = new Activator(
                 $id,
-                new UserName("UserName" . $id->value()),
+                new ActivatorName("UserName" . $id->value()),
             );
         }
         return $users;

@@ -2,11 +2,11 @@
 
 namespace App\Adapter\Gateway\Command;
 
-use App\Domain\Model\Entity\Activity\Contribution;
-use App\Domain\Model\Entity\Activity\Reply;
-use App\Domain\Model\Entity\Activity\Share;
-use App\Domain\Model\ValueObject\Activity\ActivityId;
-use App\Domain\Service\Repository\Command\ActivityCommand;
+use App\Contexts\Activity\Domain\Model\Entity\Contribution;
+use App\Contexts\Activity\Domain\Model\Entity\Reply;
+use App\Contexts\Activity\Domain\Model\Entity\Share;
+use App\Contexts\Activity\Domain\Model\ValueObject\ActivityId;
+use App\Contexts\Activity\Domain\Service\Repository\Command\ActivityCommand;
 
 class ActivityCommandGateway implements ActivityCommand
 {
