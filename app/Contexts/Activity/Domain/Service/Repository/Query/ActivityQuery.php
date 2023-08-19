@@ -4,7 +4,7 @@ namespace App\Contexts\Activity\Domain\Service\Repository\Query;
 
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 use App\Contexts\Activity\Domain\Model\ValueObject\ContributionId;
-use App\Contexts\Activity\Domain\Service\Dto\Activities;
+use App\Contexts\Activity\Domain\Model\Collection\Activities;
 
 interface ActivityQuery
 {

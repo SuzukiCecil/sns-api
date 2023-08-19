@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contexts\Activity\Domain\Service\Dto;
+namespace App\Contexts\Activity\Domain\Model\Collection;
 
 use App\Contexts\Activity\Domain\Model\Entity\Activity;
 use App\Contexts\Activity\Domain\Model\Entity\Contribution;
