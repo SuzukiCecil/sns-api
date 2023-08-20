@@ -23,5 +23,7 @@ jobs:
           php-version: '8.1'
           extensions: ast
       - run: composer install
-      - run: ./vendor/bin/phan --config-file .phan/activity.php
-      - run: ./vendor/bin/phan --config-file .phan/user.php
+      - run: ./vendor/bin/phan --config-file .phan/activity_domain.php
+      - run: ./vendor/bin/phan --config-file .phan/activity_application.php
+      - run: ./vendor/bin/phan --config-file .phan/user_domain.php
+      - run: ./vendor/bin/phan --config-file .phan/user_application.php
