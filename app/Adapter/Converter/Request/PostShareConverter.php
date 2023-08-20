@@ -11,7 +11,7 @@ use DateTimeImmutable;
 class PostShareConverter extends RequestConverter implements PostShareInput
 {
     /** @var Share $postedShare 新しく登録するシェア */
-    private readonly Share $postedShare;
+    private Share $postedShare;
     protected function execute(): void
     {
         $this->postedShare = new Share(

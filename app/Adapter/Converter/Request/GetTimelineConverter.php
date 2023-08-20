@@ -7,9 +7,9 @@ use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 
 class GetTimelineConverter extends RequestConverter implements GetTimelineInput
 {
-    private readonly ActivatorId $targetUserId;
-    private readonly ?int $limit;
-    private readonly ?int $offset;
+    private ActivatorId $targetUserId;
+    private ?int $limit;
+    private ?int $offset;
 
     protected function execute(): void
     {

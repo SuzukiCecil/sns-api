@@ -11,7 +11,7 @@ use DateTimeImmutable;
 class PostContributionConverter extends RequestConverter implements PostContributionInput
 {
     /** @var Contribution $postedContribution 新しく投稿するコントリビューション */
-    private readonly Contribution $postedContribution;
+    private Contribution $postedContribution;
 
     protected function execute(): void
     {
