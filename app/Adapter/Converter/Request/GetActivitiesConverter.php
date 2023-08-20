@@ -7,9 +7,9 @@ use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 
 class GetActivitiesConverter extends RequestConverter implements GetActivitiesInput
 {
-    private readonly ActivatorId $activatorId;
-    private readonly ?int $limit;
-    private readonly ?int $offset;
+    private ActivatorId $activatorId;
+    private ?int $limit;
+    private ?int $offset;
 
     protected function execute(): void
     {

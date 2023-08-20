@@ -12,7 +12,7 @@ use DateTimeImmutable;
 class PostReplyConverter extends RequestConverter implements PostReplyInput
 {
     /** @var Reply $postedReply 新しく登録する返信 */
-    private readonly Reply $postedReply;
+    private Reply $postedReply;
 
     protected function execute(): void
     {
