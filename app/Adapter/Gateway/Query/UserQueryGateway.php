@@ -5,10 +5,11 @@ namespace App\Adapter\Gateway\Query;
 use App\Contexts\Activity\Domain\Model\Entity\Activator;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorName;
+use App\Contexts\Activity\Domain\Service\Repository\Query\ActivatorQuery;
 use App\Contexts\Base\Domain\Exception\ViolateDomainRuleException;
 use App\Contexts\User\Domain\Service\Repository\Query\UserQuery;
 
-class UserQueryGateway implements UserQuery
+class UserQueryGateway implements UserQuery, ActivatorQuery
 {
 
     /**

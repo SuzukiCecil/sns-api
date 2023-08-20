@@ -6,15 +6,15 @@ use App\Contexts\Activity\Application\UsecaseInput\PostShareInput;
 use App\Contexts\Activity\Application\UsecaseOutput\Impls\PostShareOutputImpl;
 use App\Contexts\Activity\Application\UsecaseOutput\PostShareOutput;
 use App\Contexts\Activity\Domain\Service\Repository\Command\ActivityCommand;
+use App\Contexts\Activity\Domain\Service\Repository\Query\ActivatorQuery;
 use App\Contexts\Activity\Domain\Service\Repository\Query\ActivityQuery;
-use App\Contexts\User\Domain\Service\Repository\Query\UserQuery;
 
 class PostShareUsecase
 {
     public function __construct(
         private readonly ActivityCommand $activityCommand,
-        private readonly ActivityQuery $activityQuery,
-        private readonly UserQuery $userQuery,
+        private readonly ActivityQuery   $activityQuery,
+        private readonly ActivatorQuery  $activatorQuery,
     ) {
     }
 
@@ -23,7 +23,7 @@ class PostShareUsecase
         $sharedContribution = $this->activityQuery->getContributionsByIds(
             $input->getPostedShare()->sharedContributionId()
         )->contributions()[0];
-        $activators = $this->userQuery->getActivatorsByIds([
+        $activators = $this->activatorQuery->getActivatorsByIds([
             $input->getPostedShare()->activatorId(),
             $sharedContribution->activatorId(),
         ]);

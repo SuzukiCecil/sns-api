@@ -1,4 +1,4 @@
-name: PHPCS
+name: CI
 on: [push]
 jobs:
   phpcs:
@@ -23,4 +23,5 @@ jobs:
           php-version: '8.1'
           extensions: ast
       - run: composer install
-      - run: ./vendor/bin/phan
+      - run: ./vendor/bin/phan --config-file .phan/activity.php
+      - run: ./vendor/bin/phan --config-file .phan/user.php
