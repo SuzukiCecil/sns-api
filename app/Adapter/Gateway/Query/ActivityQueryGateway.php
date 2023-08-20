@@ -42,8 +42,11 @@ class ActivityQueryGateway implements ActivityQuery
      * @param int|null $offset
      * @return Activities
      */
-    public function getActivitiesByActivatorId(ActivatorId $activatorId, ?int $limit = null, ?int $offset = null): Activities
-    {
+    public function getActivitiesByActivatorId(
+        ActivatorId $activatorId,
+        ?int $limit = null,
+        ?int $offset = null
+    ): Activities {
         // TODO：データストアからのアクティビティ生成処理の実装
         return new Activities([
             new Contribution(
@@ -94,8 +97,11 @@ class ActivityQueryGateway implements ActivityQuery
      * @param int|null $offset
      * @return Activities
      */
-    public function getFollowersActivities(ActivatorId $followeeId, ?int $limit = null, ?int $offset = null): Activities
-    {
+    public function getFollowersActivities(
+        ActivatorId $followeeId,
+        ?int $limit = null,
+        ?int $offset = null
+    ): Activities {
         // TODO：データストアからのアクティビティ生成処理の実装
         return new Activities([
             new Contribution(

@@ -14,7 +14,6 @@ class PostShareOutputImpl implements PostShareOutput
         private readonly Contribution $sharedContribution,
         private readonly Activator $activator,
         private readonly Activator $activatorOfSharedContribution,
-
     ) {
     }
 

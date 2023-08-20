@@ -20,7 +20,9 @@ class PostShareUsecase
 
     public function execute(PostShareInput $input): PostShareOutput
     {
-        $sharedContribution = $this->activityQuery->getContributionsByIds($input->getPostedShare()->sharedContributionId())->contributions()[0];
+        $sharedContribution = $this->activityQuery->getContributionsByIds(
+            $input->getPostedShare()->sharedContributionId()
+        )->contributions()[0];
         $activators = $this->userQuery->getActivatorsByIds([
             $input->getPostedShare()->activatorId(),
             $sharedContribution->activatorId(),

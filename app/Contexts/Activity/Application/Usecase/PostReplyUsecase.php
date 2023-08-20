@@ -20,7 +20,9 @@ class PostReplyUsecase
 
     public function execute(PostReplyInput $input): PostReplyOutput
     {
-        $repliedContribution = $this->activityQuery->getContributionsByIds($input->getPostedReply()->repliedContributionId())->contributions()[0];
+        $repliedContribution = $this->activityQuery->getContributionsByIds(
+            $input->getPostedReply()->repliedContributionId()
+        )->contributions()[0];
         $activators = $this->userQuery->getActivatorsByIds([
             $input->getPostedReply()->activatorId(),
             $repliedContribution->activatorId(),

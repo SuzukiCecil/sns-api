@@ -37,13 +37,17 @@ class GetTimelinePresenter extends JsonPresenter
                         $activity,
                         $output->getActivator($activity->activatorId()),
                         $output->getContributionOfReplied($activity->repliedContributionId()),
-                        $output->getActivator($output->getContributionOfReplied($activity->repliedContributionId())->activatorId()),
+                        $output->getActivator(
+                            $output->getContributionOfReplied($activity->repliedContributionId())->activatorId()
+                        ),
                     ),
                     $activity instanceof Share => new ShareViewModel(
                         $activity,
                         $output->getActivator($activity->activatorId()),
                         $output->getContributionOfShared($activity->sharedContributionId()),
-                        $output->getActivator($output->getContributionOfShared($activity->sharedContributionId())->activatorId()),
+                        $output->getActivator(
+                            $output->getContributionOfShared($activity->sharedContributionId())->activatorId()
+                        ),
                     ),
                     default => throw new Exception("Unexpected activity."),
                 };

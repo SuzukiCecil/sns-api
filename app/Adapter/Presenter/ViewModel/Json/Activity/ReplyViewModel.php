@@ -33,8 +33,13 @@ class ReplyViewModel implements JsonViewModel
             "datetime" => $this->reply->datetime()->format("Y-m-d H:i:s"),
             "body" => $this->reply->body()->value(),
             "activatorId" => $this->reply->activatorId()->value(),
-            "activator" => new ActivatorViewModel($this->activator),
-            "repliedContribution" => new ContributionViewModel($this->repliedContribution, $this->activatorOfRepliedContribution),
+            "activator" => new ActivatorViewModel(
+                $this->activator,
+            ),
+            "repliedContribution" => new ContributionViewModel(
+                $this->repliedContribution,
+                $this->activatorOfRepliedContribution,
+            ),
         ];
     }
 }

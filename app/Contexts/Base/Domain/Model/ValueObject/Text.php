@@ -18,13 +18,19 @@ abstract class Text
     {
         if (!empty($this->value)) {
             if (!is_null(static::PATTERN) && !preg_match(static::PATTERN, $this->value())) {
-                throw new ViolateDomainRuleException(static::class . " does`t match pattern.");
+                throw new ViolateDomainRuleException(
+                    static::class . " does`t match pattern."
+                );
             }
             if (!is_null(static::MIN_LENGTH) && strlen($this->value) < static::MIN_LENGTH) {
-                throw new ViolateDomainRuleException(static::class . " must be over " . static::MIN_LENGTH . " characters");
+                throw new ViolateDomainRuleException(
+                    static::class . " must be over " . static::MIN_LENGTH . " characters"
+                );
             }
             if (!is_null(static::MIN_LENGTH) && strlen($this->value) > static::MAX_LENGTH) {
-                throw new ViolateDomainRuleException(static::class . " must be under " . static::MAX_LENGTH . " characters");
+                throw new ViolateDomainRuleException(
+                    static::class . " must be under " . static::MAX_LENGTH . " characters"
+                );
             }
         }
     }

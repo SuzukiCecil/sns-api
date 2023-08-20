@@ -32,8 +32,13 @@ class ShareViewModel implements JsonViewModel
             "id" => $this->share->id()->value(),
             "datetime" => $this->share->datetime()->format("Y-m-d H:i:s"),
             "activatorId" => $this->share->activatorId()->value(),
-            "activator" => new ActivatorViewModel($this->activator),
-            "sharedContribution" => new ContributionViewModel($this->sharedContribution, $this->activatorOfSharedContribution),
+            "activator" => new ActivatorViewModel(
+                $this->activator,
+            ),
+            "sharedContribution" => new ContributionViewModel(
+                $this->sharedContribution,
+                $this->activatorOfSharedContribution,
+            ),
         ];
     }
 }

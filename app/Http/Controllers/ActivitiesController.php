@@ -29,8 +29,11 @@ class ActivitiesController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function getActivities(GetActivitiesConverter $input, GetActivitiesUsecase $usecase, GetActivitiesPresenter $presenter): JsonResponse
-    {
+    public function getActivities(
+        GetActivitiesConverter $input,
+        GetActivitiesUsecase $usecase,
+        GetActivitiesPresenter $presenter
+    ): JsonResponse {
         $output = $usecase->execute($input);
         return $presenter->execute($output);
     }
@@ -42,8 +45,11 @@ class ActivitiesController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function getTimeline(GetTimelineConverter $input, GetTimelineUsecase $usecase, GetTimelinePresenter $presenter): JsonResponse
-    {
+    public function getTimeline(
+        GetTimelineConverter $input,
+        GetTimelineUsecase $usecase,
+        GetTimelinePresenter $presenter
+    ): JsonResponse {
         $output = $usecase->execute($input);
         return $presenter->execute($output);
     }
@@ -55,8 +61,11 @@ class ActivitiesController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function postContribution(PostContributionConverter $input, PostContributionUsecase $usecase, PostContributionPresenter $presenter): JsonResponse
-    {
+    public function postContribution(
+        PostContributionConverter $input,
+        PostContributionUsecase $usecase,
+        PostContributionPresenter $presenter
+    ): JsonResponse {
         $output = $usecase->execute($input);
         return $presenter->execute($output);
     }
@@ -68,8 +77,11 @@ class ActivitiesController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function postShare(PostShareConverter $input, PostShareUsecase $usecase, PostSharePresenter $presenter): JsonResponse
-    {
+    public function postShare(
+        PostShareConverter $input,
+        PostShareUsecase $usecase,
+        PostSharePresenter $presenter
+    ): JsonResponse {
         $output = $usecase->execute($input);
         return $presenter->execute($output);
     }
@@ -81,8 +93,11 @@ class ActivitiesController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function postReply(PostReplyConverter $input, PostReplyUsecase $usecase, PostReplyPresenter $presenter): JsonResponse
-    {
+    public function postReply(
+        PostReplyConverter $input,
+        PostReplyUsecase $usecase,
+        PostReplyPresenter $presenter
+    ): JsonResponse {
         $output = $usecase->execute($input);
         return $presenter->execute($output);
     }
