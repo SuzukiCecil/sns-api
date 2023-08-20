@@ -6,14 +6,14 @@ use App\Contexts\Activity\Application\UsecaseInput\GetActivitiesInput;
 use App\Contexts\Activity\Application\UsecaseOutput\GetActivitiesOutput;
 use App\Contexts\Activity\Application\UsecaseOutput\Impls\GetActivitiesOutputImpl;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
+use App\Contexts\Activity\Domain\Service\Repository\Query\ActivatorQuery;
 use App\Contexts\Activity\Domain\Service\Repository\Query\ActivityQuery;
-use App\Contexts\User\Domain\Service\Repository\Query\UserQuery;
 
 class GetActivitiesUsecase
 {
     public function __construct(
-        private readonly ActivityQuery $activityQuery,
-        private readonly UserQuery $userQuery,
+        private readonly ActivityQuery  $activityQuery,
+        private readonly ActivatorQuery $activatorQuery,
     ) {
     }
 
@@ -40,7 +40,7 @@ class GetActivitiesUsecase
         $activatorIds = $this->mergeActivatorIds($activatorIds, $contributionsOfReplied->uniqueActivatorIds());
         $activatorIds = $this->mergeActivatorIds($activatorIds, $contributionsOfShared->uniqueActivatorIds());
         $activators = $activities->count() > 0 ?
-            $this->userQuery->getActivatorsByIds($activatorIds) :
+            $this->activatorQuery->getActivatorsByIds($activatorIds) :
             [];
 
         return new GetActivitiesOutputImpl(
