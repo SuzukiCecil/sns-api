@@ -7,7 +7,7 @@ DDD, CleanArchitectureを採用したSNSアプリケーションを想定したW
 3. [ER図](#ER図)
 4. [ユビキタス言語辞書](#ユビキタス言語辞書)
 5. [ディレクトリ構成](#ディレクトリ構成)
-
+6. [例外設計](#例外設計)
 # 環境
 ### ローカル環境構築
 
@@ -95,3 +95,17 @@ app/
 ### Controllersに関して
 * Clean ArchitectureではControllerもInterface Adaptersに属するため、本来であればAdapterディレクトリ下に配置されるべきかと思いますがLaravelのMiddlewareと同ディレクトリ内に配置するためにHttpディレクトリ下に配置してあります
  
+# 例外設計
+下記の通り独自の例外を定義しています
+* \App\Contexts\Base\Domain\Exception\ViolateDomainRuleException
+  * ドメインルールに違反している場合に発生する例外
+  * 例外が投げられた場合、APIのリクエストとしてはステータスコード500を返却し、アラートの発砲など障害対応が必要なことを想定している
+  * ただしConverterで発生するドメインルール違反に関しては入力値により、いくらでも違反できてしまうため後述するInvalidConverterParameterExceptionに置き換えている
+* \App\Adapter\Converter\Exception\InvalidConverterParameterException
+  * プログラムの入力値が不正な場合に発生する例外
+  * 例外が投げられた場合、APIのリクエストとしてはステータスコード400を返却する
+* \App\Adapter\Gateway\Exception\NotFoundException
+    * DBなどデータストアに対象のデータが存在しない場合に発生する例外
+    * 例外が投げられた場合、APIのリクエストとしてはステータスコード404を返却する
+
+また、プログラム上でユーザー例外の基底クラスをthrowしている箇所が存在しますが、それらは例外を投げる条件に当てはまることを想定していないにも関わらず条件に合致してしまった場合に例外を投げています（例：Activity抽象ドメインモデルを継承しているドメインモデルはContribution, Share, ReplyのみだがActivityのインスタンスがContribution, Share, Replyのいずれでもない）
