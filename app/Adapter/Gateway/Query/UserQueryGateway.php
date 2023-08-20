@@ -5,7 +5,7 @@ namespace App\Adapter\Gateway\Query;
 use App\Contexts\Activity\Domain\Model\Entity\Activator;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorName;
-use App\Contexts\Base\Domain\Model\Exception\InvalidDataException;
+use App\Contexts\Base\Domain\Exception\ViolateDomainRuleException;
 use App\Contexts\User\Domain\Service\Repository\Query\UserQuery;
 
 class UserQueryGateway implements UserQuery
@@ -14,7 +14,7 @@ class UserQueryGateway implements UserQuery
     /**
      * @param ActivatorId[]|ActivatorId $ids
      * @return Activator[]
-     * @throws InvalidDataException
+     * @throws ViolateDomainRuleException
      */
     public function getActivatorsByIds(array|ActivatorId $ids): array
     {

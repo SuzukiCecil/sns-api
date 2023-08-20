@@ -2,30 +2,30 @@
 
 namespace App\Adapter\Converter\Request;
 
-use App\Adapter\Converter\Exception\InvalidRequestParameterException;
-use App\Contexts\Base\Domain\Model\Exception\InvalidDataException;
+use App\Adapter\Converter\Exception\InvalidConverterParameterException;
+use App\Contexts\Base\Domain\Exception\ViolateDomainRuleException;
 use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
 /**
- *
+ * APIの入力をハンドリングする抽象親Converter
  */
 abstract class RequestConverter
 {
     /**
      * @param Request $request
-     * @throws InvalidRequestParameterException
+     * @throws InvalidConverterParameterException
      * @throws Exception
      */
     public function __construct(protected readonly Request $request)
     {
         try {
             $this->execute();
-        } catch (InvalidRequestParameterException $e) {
+        } catch (InvalidConverterParameterException $e) {
             throw $e;
-        } catch (InvalidDataException $e) {
-            throw new InvalidRequestParameterException(
+        } catch (ViolateDomainRuleException $e) {
+            throw new InvalidConverterParameterException(
                 message: $e->getMessage(),
                 previous: $e
             );
@@ -38,8 +38,8 @@ abstract class RequestConverter
     }
 
     /**
-     * @throws InvalidRequestParameterException
-     * @throws InvalidDataException
+     * @throws InvalidConverterParameterException
+     * @throws ViolateDomainRuleException
      */
     abstract protected function execute(): void;
 }

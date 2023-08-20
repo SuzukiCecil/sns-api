@@ -2,14 +2,14 @@
 
 namespace App\Contexts\Base\Domain\Model\ValueObject;
 
-use App\Contexts\Base\Domain\Model\Exception\InvalidDataException;
+use App\Contexts\Base\Domain\Exception\ViolateDomainRuleException;
 
 abstract class Id
 {
     public function __construct(private readonly string $value)
     {
         if (empty($this->value)) {
-            throw new InvalidDataException(static::class . " does`t take empty value.");
+            throw new ViolateDomainRuleException(static::class . " does`t take empty value.");
         }
     }
 

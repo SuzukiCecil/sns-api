@@ -6,7 +6,7 @@ use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivityId;
 use App\Contexts\Activity\Domain\Model\ValueObject\Body;
 use App\Contexts\Activity\Domain\Model\ValueObject\ContributionId;
-use App\Contexts\Base\Domain\Model\Exception\InvalidDataException;
+use App\Contexts\Base\Domain\Exception\ViolateDomainRuleException;
 use DateTimeImmutable;
 
 /**
@@ -37,7 +37,7 @@ class Contribution extends Activity
     /**
      * アクティビティIDを投稿IDとして取得する関数
      * @return ContributionId
-     * @throws InvalidDataException
+     * @throws ViolateDomainRuleException
      */
     public function contributionId(): ContributionId
     {

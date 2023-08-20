@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Adapter\Presenter\Json\Activity;
+namespace App\Adapter\Presenter\Response\Json\Activity;
 
-use App\Adapter\Presenter\Json\JsonPresenter;
+use App\Adapter\Presenter\Response\Json\JsonPresenter;
 use App\Adapter\Presenter\ViewModel\Json\Activity\ContributionViewModel;
 use App\Adapter\Presenter\ViewModel\Json\Activity\ReplyViewModel;
 use App\Adapter\Presenter\ViewModel\Json\Activity\ShareViewModel;
-use App\Contexts\Activity\Application\UsecaseOutput\GetTimelineOutput;
+use App\Contexts\Activity\Application\UsecaseOutput\GetActivitiesOutput;
 use App\Contexts\Activity\Domain\Model\Entity\Activity;
 use App\Contexts\Activity\Domain\Model\Entity\Contribution;
 use App\Contexts\Activity\Domain\Model\Entity\Reply;
@@ -14,14 +14,17 @@ use App\Contexts\Activity\Domain\Model\Entity\Share;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
-class GetTimelinePresenter extends JsonPresenter
+/**
+ * Activity一覧取得APIのレスポンスを返却するPresenter
+ */
+class GetActivitiesPresenter extends JsonPresenter
 {
     /**
-     * @param GetTimelineOutput $output
+     * @param GetActivitiesOutput $output
      * @return JsonResponse
      * @throws Exception
      */
-    public function execute(GetTimelineOutput $output): JsonResponse
+    public function execute(GetActivitiesOutput $output): JsonResponse
     {
         return $this->jsonResponse(
             array_map(function (Activity $activity) use ($output) {

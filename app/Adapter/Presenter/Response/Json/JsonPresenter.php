@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Adapter\Presenter\Json;
+namespace App\Adapter\Presenter\Response\Json;
 
 use App\Adapter\Presenter\ViewModel\Json\JsonViewModel;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\ResponseFactory;
-use Exception;
 
+/**
+ * APIのJSONレスポンスを返却する抽象親Presenter
+ */
 abstract class JsonPresenter
 {
     public function __construct(private readonly ResponseFactory $responseFactory)
