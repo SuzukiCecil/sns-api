@@ -17,19 +17,19 @@ abstract class Text
     public function __construct(private readonly string $value)
     {
         if (!empty($this->value)) {
-            if (!is_null(static::PATTERN) && !preg_match(static::PATTERN, $this->value())) {
+            if (!is_null(static::PATTERN) && !preg_match((string)static::PATTERN, $this->value)) {
                 throw new ViolateDomainRuleException(
                     static::class . " does`t match pattern."
                 );
             }
             if (!is_null(static::MIN_LENGTH) && strlen($this->value) < static::MIN_LENGTH) {
                 throw new ViolateDomainRuleException(
-                    static::class . " must be over " . static::MIN_LENGTH . " characters"
+                    static::class . " must be over " . (string)static::MIN_LENGTH . " characters"
                 );
             }
             if (!is_null(static::MIN_LENGTH) && strlen($this->value) > static::MAX_LENGTH) {
                 throw new ViolateDomainRuleException(
-                    static::class . " must be under " . static::MAX_LENGTH . " characters"
+                    static::class . " must be under " . (string)static::MAX_LENGTH . " characters"
                 );
             }
         }

@@ -24,11 +24,13 @@ class Activities
      */
     public function contributions(): array
     {
-        return array_values(
-            array_filter($this->values, function (Activity $value) {
-                return $value instanceof Contribution;
-            })
-        );
+        $contributions = [];
+        foreach ($this->values as $value) {
+            if ($value instanceof Contribution) {
+                $contributions[] = $value;
+            }
+        }
+        return $contributions;
     }
 
     /**
@@ -36,11 +38,13 @@ class Activities
      */
     public function replies(): array
     {
-        return array_values(
-            array_filter($this->values, function (Activity $value) {
-                return $value instanceof Reply;
-            })
-        );
+        $replies = [];
+        foreach ($this->values as $value) {
+            if ($value instanceof Reply) {
+                $replies[] = $value;
+            }
+        }
+        return $replies;
     }
 
     /**
@@ -48,11 +52,13 @@ class Activities
      */
     public function shares(): array
     {
-        return array_values(
-            array_filter($this->values, function (Activity $value) {
-                return $value instanceof Share;
-            })
-        );
+        $shares = [];
+        foreach ($this->values as $value) {
+            if ($value instanceof Share) {
+                $shares[] = $value;
+            }
+        }
+        return $shares;
     }
 
     public function count(): int
