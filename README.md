@@ -13,7 +13,7 @@ DDD, CleanArchitectureを採用したSNSアプリケーションを想定したW
 
 ```
 $ git clone https://github.com/SuzukiCecil/sns-api.git
-$ cd sns-api
+$ cd sns-api/src/
 $ composer install
 $ php artisan serve --host=127.0.0.1 --port=10000
 ```
