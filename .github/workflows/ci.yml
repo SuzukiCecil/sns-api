@@ -6,13 +6,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: composer install
+        working-directory: ./src
       - run: ./vendor/bin/phpcs -v app
+        working-directory: ./src
   phpstan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: composer install
+        working-directory: ./src
       - run: ./vendor/bin/phpstan analyse
+        working-directory: ./src
   phan:
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +27,12 @@ jobs:
           php-version: '8.1'
           extensions: ast
       - run: composer install
+        working-directory: ./src
       - run: ./vendor/bin/phan --config-file .phan/activity_domain.php
+        working-directory: ./src
       - run: ./vendor/bin/phan --config-file .phan/activity_application.php
+        working-directory: ./src
       - run: ./vendor/bin/phan --config-file .phan/user_domain.php
+        working-directory: ./src
       - run: ./vendor/bin/phan --config-file .phan/user_application.php
+        working-directory: ./src
