@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: cd src/
       - run: composer install
       - run: ./vendor/bin/phpcs -v app
   phpstan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: cd src/
       - run: composer install
       - run: ./vendor/bin/phpstan analyse
   phan:
@@ -22,6 +24,7 @@ jobs:
         with:
           php-version: '8.1'
           extensions: ast
+      - run: cd src/
       - run: composer install
       - run: ./vendor/bin/phan --config-file .phan/activity_domain.php
       - run: ./vendor/bin/phan --config-file .phan/activity_application.php
