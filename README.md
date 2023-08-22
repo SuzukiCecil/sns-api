@@ -12,10 +12,11 @@ DDD, CleanArchitectureを採用したSNSアプリケーションを想定したW
 ### ローカル環境構築
 
 ```
-$ git clone https://github.com/SuzukiCecil/sns-api.git
-$ cd sns-api/src/
-$ composer install
-$ php artisan serve --host=127.0.0.1 --port=10000
+$ docker compose build
+$ docker compose up -d
+$ docker compose exec app php artisan key:generate
+$ docker compose exec app php artisan storage:link
+$ docker compose exec app chmod -R 777 storage bootstrap/cache
 ```
 
 # ユースケース図
