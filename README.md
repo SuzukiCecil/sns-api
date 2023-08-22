@@ -2,19 +2,22 @@
 DDD, CleanArchitectureを採用したSNSアプリケーションを想定したWebAPIの実装リポジトリ（逐次実装中）
 
 # Agenda
-1. [環境](#環境)
+1. [ローカル環境構築手順](#ローカル環境構築手順)
 2. [ユースケース図](#ユースケース図)
 3. [ER図](#ER図)
 4. [ユビキタス言語辞書](#ユビキタス言語辞書)
 5. [ディレクトリ構成](#ディレクトリ構成)
 6. [例外設計](#例外設計)
 # 環境
-### ローカル環境構築
+### ローカル環境構築手順
 
 ```
+$ git clone https://github.com/SuzukiCecil/sns-api.git
+$ cd sns-api/src/
+$ composer install
+$ cd ../
 $ docker compose build
 $ docker compose up -d
-$ docker compose exec app php artisan key:generate
 $ docker compose exec app php artisan storage:link
 $ docker compose exec app chmod -R 777 storage bootstrap/cache
 ```
