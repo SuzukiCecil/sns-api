@@ -11,7 +11,19 @@ class ShareSeeder extends Seeder
     {
         DB::connection()->table("share")->insert([
             [
-
+                "contribution_id" => "2",
+            ],
+            [
+                "contribution_id" => "1",
+            ],
+            [
+                "contribution_id" => "2",
+            ],
+            [
+                "contribution_id" => "16",
+            ],
+            [
+                "contribution_id" => "18",
             ],
         ]);
     }
