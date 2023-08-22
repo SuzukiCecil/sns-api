@@ -15,11 +15,11 @@ DDD, CleanArchitectureを採用したSNSアプリケーションを想定したW
 $ git clone https://github.com/SuzukiCecil/sns-api.git
 $ cd sns-api/src/
 $ composer install
-$ cd ../
 $ docker compose build
 $ docker compose up -d
 $ docker compose exec app php artisan storage:link
 $ docker compose exec app chmod -R 777 storage bootstrap/cache
+$ docker compose exec app php artisan migrate:fresh --seed
 ```
 
 # ユースケース図
