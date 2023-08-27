@@ -2,18 +2,25 @@
 
 namespace App\Adapter\Gateway\Query;
 
-use App\Contexts\Activity\Domain\Model\Entity\Contribution;
-use App\Contexts\Activity\Domain\Model\Entity\Reply;
-use App\Contexts\Activity\Domain\Model\Entity\Share;
+use App\Adapter\Gateway\Model\Eloquent\ActivityEloquentModel;
+use App\Adapter\Gateway\Model\Eloquent\ContributionEloquentModel;
+use App\Adapter\Gateway\Model\Eloquent\FollowEloquentModel;
+use App\Adapter\Gateway\Model\Eloquent\ReplyEloquentModel;
+use App\Adapter\Gateway\Model\Eloquent\ShareEloquentModel;
+use App\Adapter\Gateway\Query\Transformer\ActivityTransformer;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
-use App\Contexts\Activity\Domain\Model\ValueObject\ActivityId;
-use App\Contexts\Activity\Domain\Model\ValueObject\Body;
 use App\Contexts\Activity\Domain\Model\ValueObject\ContributionId;
 use App\Contexts\Activity\Domain\Model\Collection\Activities;
 use App\Contexts\Activity\Domain\Service\Repository\Query\ActivityQuery;
+use Illuminate\Support\Collection;
 
 class ActivityQueryGateway implements ActivityQuery
 {
+    public function __construct(
+        private readonly ActivityTransformer $activityTransformer,
+    ) {
+    }
+
     /**
      * @param ContributionId[]|ContributionId $contributionIds
      * @return Activities
@@ -22,17 +29,14 @@ class ActivityQueryGateway implements ActivityQuery
     {
         $contributionIds = is_array($contributionIds) ? $contributionIds : [$contributionIds];
 
-        // TODO：データストアからのアクティビティ生成処理の実装
-        $contributions = [];
-        foreach ($contributionIds as $contributionId) {
-            $contributions[] = new Contribution(
-                new ActivityId($contributionId->value()),
-                new \DateTimeImmutable(),
-                new ActivatorId("1" . $contributionId->value()),
-                new Body("ContributionBody" . $contributionId->value()),
-            );
-        }
-        return new Activities($contributions);
+        $activityEloquentModels = ActivityEloquentModel::query()
+            ->whereIn(
+                "id",
+                array_map(fn(ContributionId $contributionId) => $contributionId->value(), $contributionIds)
+            )
+            ->get();
+
+        return $this->toActivities($activityEloquentModels);
     }
 
     /**
@@ -44,50 +48,14 @@ class ActivityQueryGateway implements ActivityQuery
      */
     public function getActivitiesByActivatorId(
         ActivatorId $activatorId,
-        ?int $limit = null,
-        ?int $offset = null
+        ?int        $limit = null,
+        ?int        $offset = null
     ): Activities {
-        // TODO：データストアからのアクティビティ生成処理の実装
-        return new Activities([
-            new Contribution(
-                new ActivityId("1"),
-                new \DateTimeImmutable(),
-                new ActivatorId("11"),
-                new Body("ContributionBody1"),
-            ),
-            new Contribution(
-                new ActivityId("2"),
-                new \DateTimeImmutable(),
-                new ActivatorId("11"),
-                new Body("ContributionBody2"),
-            ),
-            new Share(
-                new ActivityId("3"),
-                new \DateTimeImmutable(),
-                new ActivatorId("11"),
-                new ContributionId("101"),
-            ),
-            new Share(
-                new ActivityId("4"),
-                new \DateTimeImmutable(),
-                new ActivatorId("11"),
-                new ContributionId("102"),
-            ),
-            new Reply(
-                new ActivityId("5"),
-                new \DateTimeImmutable(),
-                new ActivatorId("11"),
-                new ContributionId("101"),
-                new Body("ReplyBody1"),
-            ),
-            new Reply(
-                new ActivityId("6"),
-                new \DateTimeImmutable(),
-                new ActivatorId("11"),
-                new ContributionId("103"),
-                new Body("ReplyBody2"),
-            ),
-        ]);
+        $activityEloquentModels = ActivityEloquentModel::query()
+            ->where("activator", "=", $activatorId->value())
+            ->get();
+
+        return $this->toActivities($activityEloquentModels);
     }
 
     /**
@@ -99,49 +67,72 @@ class ActivityQueryGateway implements ActivityQuery
      */
     public function getFollowersActivities(
         ActivatorId $followeeId,
-        ?int $limit = null,
-        ?int $offset = null
+        ?int        $limit = null,
+        ?int        $offset = null
     ): Activities {
-        // TODO：データストアからのアクティビティ生成処理の実装
-        return new Activities([
-            new Contribution(
-                new ActivityId("11"),
-                new \DateTimeImmutable(),
-                new ActivatorId("21"),
-                new Body("ContributionBody1"),
-            ),
-            new Contribution(
-                new ActivityId("12"),
-                new \DateTimeImmutable(),
-                new ActivatorId("22"),
-                new Body("ContributionBody2"),
-            ),
-            new Share(
-                new ActivityId("13"),
-                new \DateTimeImmutable(),
-                new ActivatorId("22"),
-                new ContributionId("101"),
-            ),
-            new Share(
-                new ActivityId("14"),
-                new \DateTimeImmutable(),
-                new ActivatorId("23"),
-                new ContributionId("102"),
-            ),
-            new Reply(
-                new ActivityId("15"),
-                new \DateTimeImmutable(),
-                new ActivatorId("24"),
-                new ContributionId("101"),
-                new Body("ReplyBody1"),
-            ),
-            new Reply(
-                new ActivityId("16"),
-                new \DateTimeImmutable(),
-                new ActivatorId("24"),
-                new ContributionId("103"),
-                new Body("ReplyBody2"),
-            ),
-        ]);
+        $followerIds = FollowEloquentModel::query()
+            ->where("followee_id", "=", $followeeId->value())
+            ->get()
+            ->pluck("follower_id");
+        $activityEloquentModels = ActivityEloquentModel::query()
+            ->whereIn(
+                "activator",
+                $followerIds,
+            )
+            ->get();
+        return $this->toActivities($activityEloquentModels);
+    }
+
+    private function toActivities(Collection $activityEloquentModels): Activities
+    {
+        $idsOfContribution = $activityEloquentModels->filter(
+            fn(ActivityEloquentModel $activityEloquentModel) => $activityEloquentModel->isContribution()
+        )->pluck("child_id");
+        $idsOfShare = $activityEloquentModels->filter(
+            fn(ActivityEloquentModel $activityEloquentModel) => $activityEloquentModel->isContribution()
+        )->pluck("child_id");
+        $idsOfReply = $activityEloquentModels->filter(
+            fn(ActivityEloquentModel $activityEloquentModel) => $activityEloquentModel->isContribution()
+        )->pluck("child_id");
+
+        $contributionEloquentModels = $idsOfContribution->count() > 0 ?
+            ContributionEloquentModel::query()
+                ->whereIn("id", $idsOfContribution)
+                ->get()
+            : new \Illuminate\Database\Eloquent\Collection();
+        $shareEloquentModels = $idsOfContribution->count() > 0 ?
+            ShareEloquentModel::query()
+                ->whereIn("id", $idsOfShare)
+                ->get()
+            : new \Illuminate\Database\Eloquent\Collection();
+        $replyEloquentModels = $idsOfContribution->count() > 0 ?
+            ReplyEloquentModel::query()
+                ->whereIn("id", $idsOfReply)
+                ->get()
+            : new \Illuminate\Database\Eloquent\Collection();
+
+        return new Activities(
+            $activityEloquentModels->map(
+                function (ActivityEloquentModel $activityEloquentModel) use (
+                    $contributionEloquentModels,
+                    $shareEloquentModels,
+                    $replyEloquentModels,
+                ) {
+                    /** @var ContributionEloquentModel|null $contributionEloquentModel */
+                    $contributionEloquentModel = $contributionEloquentModels->find($activityEloquentModel->child_id);
+                    /** @var ShareEloquentModel|null $shareEloquentModel */
+                    $shareEloquentModel = $shareEloquentModels->find($activityEloquentModel->child_id);
+                    /** @var ReplyEloquentModel|null $replyEloquentModel */
+                    $replyEloquentModel = $replyEloquentModels->find($activityEloquentModel->child_id);
+
+                    return $this->activityTransformer->toActivity(
+                        $activityEloquentModel,
+                        $contributionEloquentModel,
+                        $shareEloquentModel,
+                        $replyEloquentModel,
+                    );
+                }
+            )->all(),
+        );
     }
 }
