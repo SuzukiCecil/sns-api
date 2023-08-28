@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Adapter\Converter\Request\UserSignInConverter;
+use App\Adapter\Presenter\Response\Json\User\UserSignInPresenter;
+use App\Contexts\User\Application\Usecase\UserSignInUsecase;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-    public function userSignIn(): JsonResponse
+    public function userSignIn(UserSignInConverter $input, UserSignInUsecase $usecase, UserSignInPresenter $presenter): JsonResponse
     {
-        // TODO：サインインAPIの実装
-        return new JsonResponse();
+        $output = $usecase->execute($input);
+        return $presenter->execute($output);
     }
 
     public function userSignUp(): JsonResponse

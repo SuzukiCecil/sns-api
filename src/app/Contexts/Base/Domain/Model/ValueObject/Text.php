@@ -22,12 +22,12 @@ abstract class Text
                     static::class . " does`t match pattern."
                 );
             }
-            if (!is_null(static::MIN_LENGTH) && strlen($this->value) < static::MIN_LENGTH) {
+            if (!is_null(static::MIN_LENGTH) && mb_strlen($this->value) < static::MIN_LENGTH) {
                 throw new ViolateDomainRuleException(
                     static::class . " must be over " . (string)static::MIN_LENGTH . " characters"
                 );
             }
-            if (!is_null(static::MIN_LENGTH) && strlen($this->value) > static::MAX_LENGTH) {
+            if (!is_null(static::MIN_LENGTH) && mb_strlen($this->value) > static::MAX_LENGTH) {
                 throw new ViolateDomainRuleException(
                     static::class . " must be under " . (string)static::MAX_LENGTH . " characters"
                 );

@@ -7,10 +7,31 @@ use App\Adapter\Gateway\Model\Eloquent\UserEloquentModel;
 use App\Contexts\Activity\Domain\Model\Entity\Activator;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorId;
 use App\Contexts\Activity\Domain\Model\ValueObject\ActivatorName;
+use App\Contexts\User\Domain\Model\Entity\User;
+use App\Contexts\User\Domain\Model\ValueObject\Email;
+use App\Contexts\User\Domain\Model\ValueObject\UserId;
+use App\Contexts\User\Domain\Model\ValueObject\UserName;
 use Exception;
 
 class UserTransformer
 {
+    public function toUser(UserEloquentModel $userEloquentModel): User
+    {
+        try {
+            return new User(
+                new UserId((string)$userEloquentModel->id),
+                new UserName($userEloquentModel->name),
+                new Email($userEloquentModel->email),
+            );
+        } catch (Exception $e) {
+            throw new InvalidDataException(
+                message: "userEloquentModel:" .
+                $userEloquentModel->toJson(),
+                previous: $e,
+            );
+        }
+    }
+
     public function toActivator(UserEloquentModel $userEloquentModel): Activator
     {
         try {
